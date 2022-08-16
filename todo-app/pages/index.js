@@ -13,6 +13,10 @@ export default function Home() {
     setAlertType(type);
     setOpen(true);
   }
+  const [todos, setTodos] = useState({
+    baslik:"",
+    aciklama:""
+  })
   const handleClose=(e,reason)=>{
     if(reason==='clickaway'){
       return
@@ -20,14 +24,14 @@ export default function Home() {
     setOpen(false)
   }
   return (
-    <TodoContext.Provider value={{showAlert}}>
+    <TodoContext.Provider value={{showAlert,todos,setTodos}}>
   <Container maxWidth="md">
 	<TodoForm />
-	<Snackbar anchorOrigin={{ vertical:'top', horizontal:'center' }} open={open} autoHideDuration={4000} onClose={handleClose}>
-	    <Alert onClose={handleClose} success={alertType} sx={{ width: '100%' }}>
-	      {alertMessage}
-	    </Alert>
-	</Snackbar>
+	  <Snackbar anchorOrigin={{ vertical:'top', horizontal:'center' }} open={open} autoHideDuration={4000} onClose={handleClose}>
+	      <Alert onClose={handleClose} success={alertType} sx={{ width: '100%' }}>
+	        {alertMessage}
+	      </Alert>
+	  </Snackbar>
 	<ToDoList />
   </Container>
 </TodoContext.Provider>

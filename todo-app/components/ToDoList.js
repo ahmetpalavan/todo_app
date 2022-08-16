@@ -21,7 +21,8 @@ export default function ToDoList() {
         <div>
 
             {todos.length===0 ?(
-                <Typography variant="h5" sx={{mt:5, fontWeight:"bold"}}>Henüz Todo Eklenmedi...</Typography>
+                <Typography variant="h5" sx={{mt:5, fontWeight:"bold"}}
+                >Henüz Todo Eklenmedi...</Typography>
             ):(
                 <Typography variant="h4" sx={{mt:5, fontWeight:"bold"}}>Todo Listesi</Typography>
             )}
