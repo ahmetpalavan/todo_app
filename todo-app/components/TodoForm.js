@@ -15,7 +15,7 @@ export default function TodoForm() {
         e.preventDefault();
         // console.log(todos);
         if(todos.baslik=="" || todos.aciklama==""){
-            showAlert("error", "Başlık ya da açıklama boş geçilemez")
+            showAlert("error","Başlık ya da açıklama boş geçilemez")
             return;
         }
         const ref=collection(db,"todos");
@@ -23,7 +23,7 @@ export default function TodoForm() {
         console.log(docRef.id);
         setTodos({baslik:"",aciklama:""})
         // alert(`${docRef.id} id niz eklenmiştir`)
-        showAlert("success",`${docRef.id} id li Todo Eklenmiştir`)
+        showAlert("success")
     }
     return (
         <div>
