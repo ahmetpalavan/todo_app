@@ -8,7 +8,6 @@ import { deleteDoc, doc} from 'firebase/firestore';
 import { db } from '../firebase';
 import { TodoContext } from '../contexts/TodoContext';
 import { useContext } from 'react';
-
 export default function ToDo({todo}) {
     const {id,baslik,aciklama,tarih}=todo;
     const {showAlert,setTodos}=useContext(TodoContext)
@@ -22,7 +21,7 @@ export default function ToDo({todo}) {
         <ListItem onClick={()=>setTodos({aciklama,tarih,id,baslik})} sx={{mt:3, boxShadow:3}} style={{backgroundColor:"#FAFAFA"}} secondaryAction={
             <>
                 <IconButton onClick={(e)=>handleDelete(id,e)}>
-                    <DeleteIcon />
+                    <DeleteIcon  />
                 </IconButton>
                 <IconButton>
                     <MoreVertIcon />

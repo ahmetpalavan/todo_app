@@ -1,8 +1,9 @@
 import { Button,Typography,TextField } from "@mui/material"
 import { useRef,useEffect,useContext } from "react"     //veriyi yakalamak için useState kullandık//
-import { addDoc,collection,serverTimestamp, } from "firebase/firestore"
+import { addDoc,collection,serverTimestamp,updateDoc,doc } from "firebase/firestore"
 import { db } from "../firebase"
 import { TodoContext } from "../contexts/TodoContext"
+import swal from 'sweetalert';
 export default function TodoForm() {
 
     const {showAlert,todos,setTodos}=useContext(TodoContext)
@@ -27,15 +28,31 @@ export default function TodoForm() {
         e.preventDefault();
         // console.log(todos);
         if(todos.baslik=="" || todos.aciklama==""){
-            showAlert("error","Başlık ya da açıklama boş geçilemez")
+            swal("Are you sure you want to do this?", {
+                buttons: ["Oh no!", "Yes!"],
+            });
+            // showAlert("error","Başlık ya da açıklama boş geçilemez")
             return;
         }
-        const ref=collection(db,"todos");
-        const docRef= await addDoc(ref,{...todos,tarih:serverTimestamp()})
-        console.log(docRef.id);
-        setTodos({baslik:"",aciklama:""})
-        // alert(`${docRef.id} id niz eklenmiştir`)
-        showAlert("success")
+        if(todos?.hasOwnProperty("id")){
+            const ref=doc(db,"todos",todos.id);
+            const newTodo={baslik:todos.baslik,aciklama:todos.aciklama}
+        }else{
+            const ref=collection(db,"todos");
+            const docRef= await addDoc(ref,{...todos,tarih:serverTimestamp()})
+            console.log(docRef.id);
+            setTodos({baslik:"",aciklama:""})
+            // alert(`${docRef.id} id niz eklenmiştir`)
+            // showAlert("success")
+            swal({
+                title: "Good Job!!",
+                text: "You clicked the button!",
+                icon: "success",
+            });
+        }
+    
+
+        
     }
     return (
         <div ref={inputRef}>
