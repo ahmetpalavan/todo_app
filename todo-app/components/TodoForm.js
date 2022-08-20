@@ -35,9 +35,11 @@ export default function TodoForm() {
             return;
         }
         if(todos?.hasOwnProperty("id")){
-            const ref=doc(db,"todos",todos.id);
-            const newTodo={baslik:todos.baslik,aciklama:todos.aciklama}
-        }else{
+            const ref=doc(db,"todos",todos.id); //güncelleme
+            const newTodo={baslik:todos.baslik,aciklama:todos.aciklama,sonGuncellemeTarihi:serverTimestamp()};
+            updateDoc(ref,newTodo);
+            swal({title:"Updated",text:"To do güncellenmiştir",icon:"success"})
+        }else{ //ekleme
             const ref=collection(db,"todos");
             const docRef= await addDoc(ref,{...todos,tarih:serverTimestamp()})
             console.log(docRef.id);
@@ -46,7 +48,7 @@ export default function TodoForm() {
             // showAlert("success")
             swal({
                 title: "Good Job!!",
-                text: "You clicked the button!",
+                text: "To do eklenmiştir!",
                 icon: "success",
             });
         }
@@ -56,13 +58,12 @@ export default function TodoForm() {
     }
     return (
         <div ref={inputRef}>
-            <pre>
-                {JSON.stringify(todos,null,"\t")}
-            </pre>
             <Typography  sx={{mt:3, fontWeight:"bold"}} variiant="h5" color="darkgrey" >Yeni Todo Ekle</Typography>
             <TextField  value={todos.baslik} fullWidth label="Başlık" margin="normal" onChange={e=>setTodos({...todos, baslik:e.target.value})}></TextField>
             <TextField value={todos.aciklama} fullWidth label="Açıklama" multiline maxRows={3} margin="normal" onChange={e=>setTodos({...todos,aciklama:e.target.value})}></TextField>
-            <Button sx={{mt:3}} variant="outlined" color="success" onClick={handleClick}>Todo Ekle</Button>
+            {todos.hasOwnProperty("id")?(
+                <Button sx={{mt:3}} variant="outlined" color="warning" onClick={handleClick}>TODO GÜNCELLE </Button>
+            ) :(<Button sx={{mt:3}} variant="outlined" color="success" onClick={handleClick}>TODO EKLE</Button>)}
         </div>
     )
 }
