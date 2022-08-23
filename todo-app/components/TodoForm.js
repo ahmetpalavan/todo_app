@@ -4,9 +4,11 @@ import { addDoc,collection,serverTimestamp,updateDoc,doc } from "firebase/firest
 import { db } from "../firebase"
 import { TodoContext } from "../contexts/TodoContext"
 import swal from 'sweetalert';
+import { AuthContext } from "../contexts/AuthContext"
 export default function TodoForm() {
 
     const {showAlert,todos,setTodos}=useContext(TodoContext)
+    const {currentUser}=useContext(AuthContext)
     const inputRef=useRef();
     useEffect(()=>{
         const tiklanmaKontrol=(e)=>{

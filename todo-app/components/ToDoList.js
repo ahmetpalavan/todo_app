@@ -4,9 +4,9 @@ import {useEffect, useState} from 'react'
 import Todo from "./ToDo";
 import { Typography } from "@mui/material";
 
+
 export default function ToDoList() {
     const [todos, setTodos] = useState([]);
-
     useEffect(()=>{                           //useEffect verileri getirir.//
         const ref=collection(db,'todos');
         const q=query(ref,orderBy("tarih","desc"))     //desc tarihin artan azanını sıralar.//

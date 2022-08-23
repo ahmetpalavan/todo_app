@@ -1,11 +1,13 @@
 import Head from 'next/head'
-import {Container, Snackbar, Alert,Box,Button,Typography,Avatar} from '@mui/material'
+import {Container, Snackbar, Alert,Box,Button,Typography,Avatar, Stack} from '@mui/material'
 import ToDoList from '../components/ToDoList'
 import TodoForm from '../components/TodoForm'
 import {TodoContext} from '../contexts/TodoContext'
 import { useState,useContext } from 'react'
 import { auth } from '../firebase';
 import {AuthContext} from "../contexts/AuthContext"
+import { green } from '@mui/material/colors'
+
 export default function Home() {
   const {currentUser}=useContext(AuthContext)
   const [open, setOpen] = useState(false)
@@ -35,7 +37,9 @@ export default function Home() {
       <link rel='icon' href='/favicon.ico'/>
     </Head>
     <Box sx={{display:"flex",justifyContent:"space-between",mt:3}}>
-      <Avatar src={currentUser} />
+      <Stack spacing={3}>
+        <Avatar sx={{bgcolor:green[800]}}>A</Avatar>
+      </Stack>
       <Typography variant='h5'>
         {currentUser}
       </Typography>
